@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jokes</title>
+
+    <style>
+        body {
+            background-color: aquamarine;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #main-box {
+            width: 500px;
+            height: auto;
+            padding: 20px;
+            border-radius: 15px;
+            background-color: #fff;
+            margin: 0 auto;
+            transform: translateY(50%);
+            text-align: center;
+            box-shadow: 0 0 23px 0 rgb(34 214 154);
+        }
+
+        #main-box p {
+            font-size: 15px;
+            line-height: 25px;
+        }
+
+        #main-box h4 {
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        #next-btn {
+            background-color: #5ac206;
+            color: #fff;
+            padding: 7px 10px;
+            border-radius: 5px;
+            width: 100px;
+            border: none;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 30px;
+            border: 2px solid #5ac206;
+            transition: 0.3s;
+        }
+
+        #next-btn:hover{
+            background: #fff;
+            color: #5ac206;
+            border: 2px solid #5ac206;
+            transition: 0.3s;
+        }
+        
+    </style>
+</head>
+
+<body>
+
+    <div id="main-box">
+        <h4> &#128513; "You Can Find The Best Jokes Here." &#128514;</h4>
+
+        <p id="jokes"> </p>
+
+        <button id="next-btn">Next</button>
+    </div>
+
+    <script>
+        const jokes = document.querySelector('#jokes');
+        const jokeBtn = document.querySelector('#next-btn');
+        const setHeader = {
+            headers:{
+                Accept: "application/json"
+            }
+        }
+
+        const getJokes = () => {
+            fetch('https://icanhazdadjoke.com/', setHeader)
+            .then((res) => res.json())
+            .then((data) => {
+                jokes.innerHTML = data.joke
+            })
+            .catch((error) => console.log(error))
+        }
+
+        jokeBtn.addEventListener('click', getJokes);
+        getJokes();
+    </script>
+</body>
+
+</html>
