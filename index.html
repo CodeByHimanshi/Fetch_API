@@ -49,13 +49,12 @@
             transition: 0.3s;
         }
 
-        #next-btn:hover{
+        #next-btn:hover {
             background: #fff;
             color: #5ac206;
             border: 2px solid #5ac206;
             transition: 0.3s;
         }
-        
     </style>
 </head>
 
@@ -72,23 +71,56 @@
     <script>
         const jokes = document.querySelector('#jokes');
         const jokeBtn = document.querySelector('#next-btn');
-        const setHeader = {
-            headers:{
-                Accept: "application/json"
-            }
-        }
 
-        const getJokes = () => {
-            fetch('https://icanhazdadjoke.com/', setHeader)
-            .then((res) => res.json())
-            .then((data) => {
-                jokes.innerHTML = data.joke
-            })
-            .catch((error) => console.log(error))
+        // Fetch method without async await -------------------
+
+
+        // const setHeader = {
+        //     headers:{
+        //         Accept: "application/json"
+        //     }
+        // }
+
+        // const getJokes = () => {
+        //     fetch('https://icanhazdadjoke.com/', setHeader)
+        //     .then((res) => res.json())
+        //     .then((data) => {
+        //         jokes.innerHTML = data.joke
+        //     })
+        //     .catch((error) => console.log(error))
+        // }
+
+
+
+
+
+        // Fetch method with async await -------------------------------
+
+        // in traditional way...
+
+        // async function funcName(){
+        //     // code here
+        // }
+
+        const getJokes = async () => {
+            try {
+                const setHeader = {
+                    headers: {
+                        Accept: "application/json"
+                    }
+                }
+
+                const res = await fetch('https://icanhazdadjoke.com/', setHeader);
+                const data = await res.json();
+                jokes.innerHTML = data.joke;
+            }catch(err){
+                console.log(`The error is ${err}`);
+            }
         }
 
         jokeBtn.addEventListener('click', getJokes);
         getJokes();
+
     </script>
 </body>
 
